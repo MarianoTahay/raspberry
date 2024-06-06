@@ -9,7 +9,7 @@ void imprimir_multiple(void *arg){
 
 void test_multi_thread(void){
     int args[10];
-    for(int i = 0; i < 10; i++){
+    for(int i = 9; i >= 0; i--){
         args[i] = i;
         thread_create(imprimir_multiple, &args[i]);
     }

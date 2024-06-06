@@ -42,7 +42,7 @@ void thread_init(void) {
 
 void thread_unblock(thread_t *t) {
     t->status = THREAD_READY;
-    list_push_back(&ready_list, &t->elem);
+    list_push_front(&ready_list, &t->elem);
 }
 
 void thread_yield(void) {
