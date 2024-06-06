@@ -43,10 +43,8 @@ struct list_elem *list_pop_front(struct list *list) {
 
 // Elimina el elemento de la lista
 void list_remove(struct list_elem *elem) {
-    struct list_elem *before = elem->prev;
-    struct list_elem *after = elem->next;
-    before->next = after;
-    after->prev = before;
+    elem->prev->next = elem->next;
+    elem->next->prev = elem->prev;
 }
 
 struct list_elem *list_begin(const struct list *list) {

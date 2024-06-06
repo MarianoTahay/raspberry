@@ -16,7 +16,7 @@ bool timer_callback(struct repeating_timer *t) {
 }
 
 void timer_init (void){
-  if (!add_repeating_timer_ms(1000, timer_callback, NULL, &timer)) {
+  if (!add_repeating_timer_ms(100, timer_callback, NULL, &timer)) {
     printf("Error al iniciar el temporizador\n");
   }
 }

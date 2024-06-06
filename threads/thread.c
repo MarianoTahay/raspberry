@@ -16,26 +16,41 @@ static unsigned thread_ticks;
 
 static bool all_threads_finished;
 
+void lista_ready_threads(){
+    if(!list_empty(&ready_list)){
+        struct list_elem *iter = list_begin(&ready_list);
+        printf("LISTA DE THREADS CON ESTADO DE READY\n");
+        printf("-> ");
+        while(iter != list_end(&ready_list) ){
+            printf("%d, ", list_entry(iter, struct thread, elem)->id);
+            iter = list_next(iter);
+        }
+        printf("\n");
+    }
+}
+
 thread_t *thread_current(void) {
     return current_thread;
 }
 
 void thread_init(void) {
     list_init(&ready_list);
+    lista_ready_threads();
     list_init(&all_list);
     all_threads_finished = false;
 }
 
 void thread_unblock(thread_t *t) {
     t->status = THREAD_READY;
-    list_push_front(&ready_list, &t->elem);
+    list_push_back(&ready_list, &t->elem);
 }
 
 void thread_yield(void) {
-    if (current_thread != NULL) {
-        current_thread->status = THREAD_READY;
-        list_push_back(&ready_list, &current_thread->elem);
-    }
+    //if (current_thread != NULL) {
+        //current_thread->status = THREAD_READY;
+        //list_push_back(&ready_list, &current_thread->elem);
+    //}
+    current_thread->status = THREAD_READY;
     schedule();
 }
 
@@ -46,7 +61,6 @@ void schedule(void) {
 
         t->status = THREAD_RUNNING;
         current_thread = t;
-
 
         t->function(t->arg);
         
@@ -66,7 +80,6 @@ void thread_create(void (*function)(void *), void *arg) {
         printf("Error al crear el proceso: memoria insuficiente.\n");
     }
     t->id = ++next_id;
-    printf("Next id %d\n", next_id);
     t->status = THREAD_READY;
     t->function = function;
     t->arg = arg;

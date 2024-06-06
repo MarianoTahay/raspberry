@@ -35,3 +35,5 @@ void schedule(void);
 void thread_tick (void);
 
 void thread_join(void);
+
+void lista_ready_threads(void);
