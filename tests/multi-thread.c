@@ -8,8 +8,8 @@ void imprimir_multiple(void *arg){
 }
 
 void test_multi_thread(void){
-    int args[10];
-    for(int i = 9; i >= 0; i--){
+    int args[500];
+    for(int i = 499; i >= 0; i--){
         args[i] = i;
         thread_create(imprimir_multiple, &args[i]);
     }
